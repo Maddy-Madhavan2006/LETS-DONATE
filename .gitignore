@@ -1,0 +1,78 @@
+# macOS
+.DS_Store
+
+# IDEs and editors
+.idea/
+.vscode/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage
+*.lcov
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components
+
+# Build output
+dist
+dist-ssr
+build/
+out
+.next
+.nuxt
+.vuepress/dist
+.svelte-kit/
+**/.vitepress/dist
+
+# Cache
+.cache
+.parcel-cache
+.temp
+explorations
+playground-temp
+temp
+**/.vitepress/cache
+.docusaurus
+.serverless/
+.fusebox/
+.dynamodb/
+.firebase/
+.tern-port
+.vscode-test
+
+# Misc
+TODOs.md
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+.npm
+.yarn-integrity
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.env
+.env.*
+!.env.example
+/packages/vite/LICENSE

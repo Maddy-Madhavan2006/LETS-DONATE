@@ -1,0 +1,38 @@
+[33m973fe65[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Fix: Configured secure CORS policy for production
+[33mcf83733[m Fix: Configured secure CORS policy for production
+[33mb92bdda[m Fix .gitignore merge conflicts
+[33mbe3c524[m Initial commit
+[33mb5f863a[m Initial commit
+[33mb7fc712[m update the footer
+[33m11f6528[m created the vercel.json file
+[33mb6da9c5[m updated the logo paths
+[33me9960ec[m updated the admin routes
+[33m6a8db79[m updated the logo source
+[33m98aee4d[m Update README.md
+[33me187389[m Update README.md
+[33m2dd6fd8[m Update README.md
+[33m3cb7f61[m Create README.md
+[33mb74a793[m Optimized the code
+[33mdb60807[m Added insert, when the user fills the form the data is stored in their respective tables and also in new users table to show on the dashboard
+[33mcb9456c[m Implemented dashboard
+[33m18af144[m implemented edit feature on all pages
+[33m83ed838[m Edit implemented
+[33ma06bf97[m Implementing editing feature
+[33m072fb60[m implemented delete feature
+[33m5c3fb83[m Added all dashboards of admin dashboard
+[33m0b6b871[m Added checkbox in the donated place of donated col
+[33mfa7c21a[m Implemented Admin Donate BLood Page
+[33m2b35491[m Done some shit
+[33md1f4429[m handeled form submision of need help page
+[33m479d953[m Implemented the form data sql insert logic to all pages
+[33md8eea43[m Added search box on need blood page
+[33med1a57d[m Changed logos
+[33md2261f5[m added back to top, and some other tasks
+[33m5db07df[m created forms for all pages
+[33m3235d0b[m created a reusable form
+[33mcc302eb[m Optimized and created other pages
+[33md9cdd8a[m Created remaining pages
+[33md71aa95[m optimized components for reusability
+[33m5a8378b[m home page created responsive
+[33m1359bcd[m created home page without responsive
+[33m5bf9e44[m updated
