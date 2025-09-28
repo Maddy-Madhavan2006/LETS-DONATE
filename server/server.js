@@ -8,27 +8,21 @@ dotenv.config();
 const app = express();
 
 // Allow requests from frontend dev server
-app.use(cors({
-  origin: ["http://localhost:5173"], // can add more origins later
-  methods: ["GET", "POST"]
-}));
+app.use(
+  cors({
+    origin: ["http://localhost:5173"], // add frontend origins in production
+    methods: ["GET", "POST"],
+  })
+);
 
 app.use(express.json());
 
-// Initialize MySQL pool
+// Initialize MySQL pool using Railway URL
 let db;
 (async () => {
   try {
-    db = await mysql.createPool({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      port: process.env.DB_PORT || 3306,
-      waitForConnections: true,
-      connectionLimit: 10,
-    });
-    console.log("✅ Connected to MySQL database!");
+    db = await mysql.createPool(process.env.MYSQL_URL);
+    console.log("✅ Connected to Railway MySQL database!");
   } catch (err) {
     console.error("❌ Database connection failed:", err);
     process.exit(1);
@@ -49,13 +43,13 @@ function validateFields(fields) {
   return null;
 }
 
-// POST routes
+// POST routes helper
 const createEntry = (table, requiredFields) => async (req, res) => {
   const error = validateFields(requiredFields(req.body));
   if (error) return res.status(400).json({ success: false, error });
 
   const columns = Object.keys(req.body).join(", ");
-  const placeholders = Object.keys(req.body).map(_ => "?").join(", ");
+  const placeholders = Object.keys(req.body).map(() => "?").join(", ");
   const values = Object.values(req.body);
 
   try {
@@ -70,35 +64,35 @@ const createEntry = (table, requiredFields) => async (req, res) => {
   }
 };
 
-// Define routes using helper
-app.post("/create-host-blood-drive", createEntry("host_blood_drive", body => ({
+// Define routes
+app.post("/create-host-blood-drive", createEntry("host_blood_drive", (body) => ({
   name: body.name,
   email: body.email,
   phone: body.phone,
   institute: body.institute,
   designation: body.designation,
-  city: body.city
+  city: body.city,
 })));
 
-app.post("/create-donate-blood", createEntry("donate_blood", body => ({
+app.post("/create-donate-blood", createEntry("donate_blood", (body) => ({
   name: body.name,
   email: body.email,
   phone: body.phone,
-  bloodType: body.bloodType
+  bloodType: body.bloodType,
 })));
 
-app.post("/create-need-blood", createEntry("need_blood", body => ({
+app.post("/create-need-blood", createEntry("need_blood", (body) => ({
   name: body.name,
   email: body.email,
   phone: body.phone,
-  bloodType: body.bloodType
+  bloodType: body.bloodType,
 })));
 
-app.post("/insert-new-users", createEntry("new_users", body => ({
+app.post("/insert-new-users", createEntry("new_users", (body) => ({
   name: body.name,
   email: body.email,
   phone: body.phone,
-  date: body.date
+  date: body.date,
 })));
 
 // Test route
@@ -106,7 +100,7 @@ app.get("/", (req, res) => {
   res.send("LetsDonate backend is running.");
 });
 
-// Global error handler (optional, catches unhandled errors)
+// Global error handler
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
   res.status(500).json({ success: false, error: "Something went wrong!" });

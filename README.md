@@ -7,7 +7,6 @@ Let'sDonate is a web application built with ReactJS, Node.js, MySQL, and Tailwin
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Solutions](#solutions)
-- [Developer](#developer)
 - [Instructions to Run](#instructions-to-run)
 - [Admin Dashboard](#admin-dashboard)
 
