@@ -10,7 +10,7 @@ const app = express();
 // Allow requests from frontend dev server
 app.use(
   cors({
-    origin: ["http://localhost:5173"], // add frontend origins in production
+    origin: ["https://lets-donate.vercel.app/"], // add frontend origins in production
     methods: ["GET", "POST"],
   })
 );
