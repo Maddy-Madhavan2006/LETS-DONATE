@@ -13,126 +13,106 @@ import { MdEmail } from "react-icons/md";
 import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
 
 const ContactPage = () => {
-	const [formData, setFormData] = useState({
-		name: "",
-		email: "",
-		phone: "",
-		reason: "",
-		message: "",
-	});
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    reason: "",
+    message: "",
+  });
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+  // ✅ use API URL from .env (works on Railway + local)
+  const API_URL = import.meta.env.VITE_API_URL;
 
-		console.log(formData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-		Axios.post("http://localhost:3001/create-need-help", {
-			name: formData.name,
-			email: formData.email,
-			phone: formData.phone,
-			reason: formData.reason,
-			message: formData.message,
-		})
-			.then((response) => {
-				console.log("success");
-				console.log(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+    console.log(formData);
 
-		newUsersInsertRequest(formData, "need-help");
+    Axios.post(`${API_URL}/create-need-help`, {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      reason: formData.reason,
+      message: formData.message,
+    })
+      .then((response) => {
+        console.log("success");
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			reason: "",
-			message: "",
-		});
-	};
+    // still posts to the same backend, just using env in that function
+    newUsersInsertRequest(formData, "need-help");
 
-	const ContactPageDetails = {
-		hero: {
-			subheadingText: "Got any Questions?",
-			headingText: "Don't Know What to Do? Let Us Assist You.",
-			classHint: "contact-page-hero",
-		},
-	};
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      reason: "",
+      message: "",
+    });
+  };
 
-	const fields = [
-		{
-			key: "name",
-			name: "name",
-			type: "text",
-			placeholder: "Name",
-			required: true,
-		},
-		{
-			key: "email",
-			name: "email",
-			type: "email",
-			placeholder: "Email",
-			required: true,
-		},
-		{
-			key: "phone",
-			name: "phone",
-			type: "tel",
-			placeholder: "Phone",
-			required: true,
-		},
-		{
-			key: "reason",
-			name: "reason",
-			type: "text",
-			placeholder: "Reason",
-			required: false,
-		},
-	];
+  const ContactPageDetails = {
+    hero: {
+      subheadingText: "Got any Questions?",
+      headingText: "Don't Know What to Do? Let Us Assist You.",
+      classHint: "contact-page-hero",
+    },
+  };
 
-	const contactDetails = [
-		{
-			key: "phone",
-			stepNumber: <FaPhoneAlt />,
-			stepName: "Phone",
-			stepDescription: "(+91)63699 34757",
-			stepUrl: "tel:+91 6369934757",
-		},
-		{
-			key: "email",
-			stepNumber: <MdEmail />,
-			stepName: "Email",
-			stepDescription: "letsdonate@gmail.com",
-			stepUrl: "mailto:letsdonate@gmail.com",
-		},
-		{
-			key: "address",
-			stepNumber: <FaMapMarkerAlt />,
-			stepName: "Address",
-			stepDescription: "Tiruchirappalli, Tamilnadu, India",
-			stepUrl: "https://goo.gl/maps/QCLpYP3yyUqhttps://www.google.com/maps/place/Tiruchirappalli,+Tamil+Nadu/@10.8160024,78.6066246,12z/data=!3m1!4b1!4m6!3m5!1s0x3baaf50ff2aecdad:0x6de02c3bedbbaea6!8m2!3d10.7904833!4d78.7046725!16zL20vMDE5Zmx2?entry=ttu&g_ep=EgoyMDI1MDkxNy4wIKXMDSoASAFQAw%3D%3DdT8HA7",
-		},
-	];
+  const fields = [
+    { key: "name", name: "name", type: "text", placeholder: "Name", required: true },
+    { key: "email", name: "email", type: "email", placeholder: "Email", required: true },
+    { key: "phone", name: "phone", type: "tel", placeholder: "Phone", required: true },
+    { key: "reason", name: "reason", type: "text", placeholder: "Reason", required: false },
+  ];
 
-	return (
-		<>
-			<HeaderComponent />
+  const contactDetails = [
+    {
+      key: "phone",
+      stepNumber: <FaPhoneAlt />,
+      stepName: "Phone",
+      stepDescription: "(+91)63699 34757",
+      stepUrl: "tel:+91 6369934757",
+    },
+    {
+      key: "email",
+      stepNumber: <MdEmail />,
+      stepName: "Email",
+      stepDescription: "letsdonate@gmail.com",
+      stepUrl: "mailto:letsdonate@gmail.com",
+    },
+    {
+      key: "address",
+      stepNumber: <FaMapMarkerAlt />,
+      stepName: "Address",
+      stepDescription: "Tiruchirappalli, Tamilnadu, India",
+      stepUrl:
+        "https://goo.gl/maps/QCLpYP3yyUqhttps://www.google.com/maps/place/Tiruchirappalli,+Tamil+Nadu/",
+    },
+  ];
 
-			<HeroComponent {...ContactPageDetails.hero} />
-			<FormComponent
-				fields={fields}
-				heading={"We're to help"}
-				buttonText={"Send Message"}
-				handleSubmit={handleSubmit}
-				formData={formData}
-				setFormData={setFormData}
-			/>
-			<ContactDetailsComponent contactDetails={contactDetails} />
-			<BeforeFooterCTA />
-			<FooterComponent />
-		</>
-	);
+  return (
+    <>
+      <HeaderComponent />
+      <HeroComponent {...ContactPageDetails.hero} />
+      <FormComponent
+        fields={fields}
+        heading={"We're to help"}
+        buttonText={"Send Message"}
+        handleSubmit={handleSubmit}
+        formData={formData}
+        setFormData={setFormData}
+      />
+      <ContactDetailsComponent contactDetails={contactDetails} />
+      <BeforeFooterCTA />
+      <FooterComponent />
+    </>
+  );
 };
 
 export default ContactPage;

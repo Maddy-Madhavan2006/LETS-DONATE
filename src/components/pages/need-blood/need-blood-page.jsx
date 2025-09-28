@@ -24,9 +24,7 @@ const NeedBloodPage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		console.log(formData);
-
-		Axios.post("http://localhost:3001/create-need-blood", {
+		Axios.post(`${import.meta.env.VITE_API_URL}/create-need-blood`, {
 			name: formData.name,
 			email: formData.email,
 			phone: formData.phone,
@@ -55,8 +53,7 @@ const NeedBloodPage = () => {
 	const NeedBloodPageDetails = {
 		quote: {
 			classHint: "quote need-blood-quote",
-			quoteText: `Facing a blood emergency?\n 
-            Request a callback and let us help you!`,
+			quoteText: `Facing a blood emergency?\nRequest a callback and let us help you!`,
 			buttonText: "Call Now",
 			buttonLink: "tel:+916369934757",
 			buttonHave: true,
@@ -118,40 +115,15 @@ const NeedBloodPage = () => {
 	];
 
 	const fields = [
-		{
-			key: "name",
-			name: "name",
-			type: "text",
-			placeholder: "Name",
-			required: true,
-		},
-		{
-			key: "email",
-			name: "email",
-			type: "email",
-			placeholder: "Email",
-			required: true,
-		},
-		{
-			key: "phone",
-			name: "phone",
-			type: "tel",
-			placeholder: "Phone",
-			required: true,
-		},
-		{
-			key: "bloodType",
-			name: "bloodType",
-			type: "text",
-			placeholder: "Blood Type",
-			required: false,
-		},
+		{ key: "name", name: "name", type: "text", placeholder: "Name", required: true },
+		{ key: "email", name: "email", type: "email", placeholder: "Email", required: true },
+		{ key: "phone", name: "phone", type: "tel", placeholder: "Phone", required: true },
+		{ key: "bloodType", name: "bloodType", type: "text", placeholder: "Blood Type", required: false },
 	];
 
 	return (
 		<>
 			<HeaderComponent />
-
 			<HeroComponent {...NeedBloodPageDetails.hero} />
 			<FormComponent
 				fields={fields}
@@ -167,9 +139,7 @@ const NeedBloodPage = () => {
 				stepsText={NeedBloodPageDetails.stepsText}
 				stepDetails={stepDetails}
 			/>
-			<CriteriaComponent
-				{...NeedBloodPageDetails.tips_for_managing_blood_loss}
-			/>
+			<CriteriaComponent {...NeedBloodPageDetails.tips_for_managing_blood_loss} />
 			<BeforeFooterCTA />
 			<FooterComponent />
 		</>
