@@ -21,6 +21,10 @@ app.use(express.json());
 let db;
 (async () => {
   try {
+    if (!process.env.MYSQL_URL) {
+      throw new Error("MYSQL_URL is not defined in environment variables!");
+    }
+
     db = await mysql.createPool(process.env.MYSQL_URL);
     console.log("✅ Connected to Railway MySQL database!");
   } catch (err) {
