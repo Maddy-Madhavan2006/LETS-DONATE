@@ -25,7 +25,9 @@ const HostBloodDrivePage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		Axios.post(`${import.meta.env.VITE_API_URL}/create-host-blood-drive`, {
+		console.log(formData);
+
+		Axios.post("http://localhost:3001/create-host-blood-drive", {
 			name: formData.name,
 			email: formData.email,
 			phone: formData.phone,
@@ -72,6 +74,7 @@ const HostBloodDrivePage = () => {
 			buttonLink: "/host-blood-drive",
 			buttonHave: true,
 		},
+
 		hosting_blood_drive: {
 			subheadingText: "",
 			headingText: "Hosting the Blood Drive",
@@ -84,6 +87,7 @@ const HostBloodDrivePage = () => {
 			buttonLink: "/host-blood-drive",
 			buttonHave: true,
 		},
+
 		hero: {
 			subheadingText: "Join us to save lives",
 			headingText: "Host a Blood Drive to save lives with us",
@@ -100,7 +104,8 @@ const HostBloodDrivePage = () => {
 			key: "promote-widely",
 			stepNumber: "01",
 			stepName: "Promote Widely",
-			stepDescription: "Use social media, flyers, and emails to spread the word.",
+			stepDescription:
+				"Use social media, flyers, and emails to spread the word.",
 		},
 		{
 			key: "emphasize-benefits",
@@ -112,17 +117,54 @@ const HostBloodDrivePage = () => {
 			key: "varity-of-channels",
 			stepNumber: "03",
 			stepName: "Variety of Channels",
-			stepDescription: "Use multiple marketing channels to reach potential donors.",
+			stepDescription:
+				"Use multiple marketing channels to reach potential donors.",
 		},
 	];
 
 	const fields = [
-		{ key: "name", name: "name", type: "text", placeholder: "Name", required: true },
-		{ key: "email", name: "email", type: "email", placeholder: "Email", required: true },
-		{ key: "phone", name: "phone", type: "tel", placeholder: "Phone", required: true },
-		{ key: "institute", name: "institute", type: "text", placeholder: "Institute", required: true },
-		{ key: "designation", name: "designation", type: "text", placeholder: "Designation", required: false },
-		{ key: "city", name: "city", type: "text", placeholder: "City", required: true },
+		{
+			key: "name",
+			name: "name",
+			type: "text",
+			placeholder: "Name",
+			required: true,
+		},
+		{
+			key: "email",
+			name: "email",
+			type: "email",
+			placeholder: "Email",
+			required: true,
+		},
+		{
+			key: "phone",
+			name: "phone",
+			type: "tel",
+			placeholder: "Phone",
+			required: true,
+		},
+		{
+			key: "institute",
+			name: "institute",
+			type: "text",
+			placeholder: "Institute",
+			required: true,
+		},
+		{
+			key: "designation",
+			name: "designation",
+			type: "text",
+			placeholder: "Designation",
+			required: false,
+		},
+		{
+			key: "city",
+			name: "city",
+			type: "text",
+			placeholder: "City",
+			required: true,
+		},
 	];
 
 	return (
@@ -141,9 +183,14 @@ const HostBloodDrivePage = () => {
 				stepsText={HostBloodDrivePageDetails.stepsText}
 				stepDetails={stepDetails}
 			/>
-			<SideBySideComponent {...HostBloodDrivePageDetails.benefits_host_drive} />
+			<SideBySideComponent
+				{...HostBloodDrivePageDetails.benefits_host_drive}
+			/>
+
 			<QuoteComponent {...HostBloodDrivePageDetails.quote} />
-			<SideBySideComponent {...HostBloodDrivePageDetails.hosting_blood_drive} />
+			<SideBySideComponent
+				{...HostBloodDrivePageDetails.hosting_blood_drive}
+			/>
 			<BeforeFooterCTA />
 			<FooterComponent />
 		</>
