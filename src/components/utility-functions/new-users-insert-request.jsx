@@ -7,14 +7,13 @@ const newUsersInsertRequest = (formData, pageSource) => {
 		(today.getMonth() + 1)
 	).slice(-2)}-${("0" + today.getDate()).slice(-2)}`;
 
-	Axios.post(`http://localhost:3001/insert-new-users`, {
-		name: formData.name,
-		email: formData.email,
-		phone: formData.phone,
-		date: formattedDate,
-		source: pageSource,
-		// source: window.location.href.substring(22),
-	})
+	Axios.post(`${import.meta.env.VITE_API_URL}/insert-new-users`, {
+  name: formData.name,
+  email: formData.email,
+  phone: formData.phone,
+  date: formattedDate,
+  source: pageSource,
+})
 		.then((response) => {
 			console.log("success");
 			console.log(response.data);
