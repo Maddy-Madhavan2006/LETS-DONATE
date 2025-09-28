@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 
-// Allow requests from frontend dev server
+// Allow requests from frontend
 app.use(
   cors({
     origin: ["https://lets-donate.vercel.app/"], // add frontend origins in production
@@ -68,7 +68,7 @@ const createEntry = (table, requiredFields) => async (req, res) => {
   }
 };
 
-// Define routes
+// POST routes
 app.post("/create-host-blood-drive", createEntry("host_blood_drive", (body) => ({
   name: body.name,
   email: body.email,
@@ -98,6 +98,47 @@ app.post("/insert-new-users", createEntry("new_users", (body) => ({
   phone: body.phone,
   date: body.date,
 })));
+
+// GET routes (for fetching submitted data)
+app.get("/api/need-blood", async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM need_blood");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch need blood entries" });
+  }
+});
+
+app.get("/api/donate-blood", async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM donate_blood");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch donate blood entries" });
+  }
+});
+
+app.get("/api/host-blood-drive", async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM host_blood_drive");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch host blood drive entries" });
+  }
+});
+
+app.get("/api/new-users", async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM new_users");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch new users" });
+  }
+});
 
 // Test route
 app.get("/", (req, res) => {
