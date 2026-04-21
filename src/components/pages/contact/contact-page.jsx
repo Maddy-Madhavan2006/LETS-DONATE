@@ -31,7 +31,7 @@ const ContactPage = () => {
     }
 
     // 2. Post to Backend (Updated URL)
-	Axios.post("https://lets-donate-1.onrender.com/api/contact", formData)
+	Axios.post("https://lets-donate-1.onrender.com/api/need-help/contact", formData)
         .then((response) => {
             console.log("Success:", response.data);
             alert("Request Submitted Successfully!");
