@@ -33,7 +33,7 @@ const DonateBloodPage = () => {
     }
 
     // 2. Submit to Backend
-    Axios.post("http://localhost:5000/api/donate-blood/schedule", formData)
+    Axios.post("https://lets-donate-1.onrender.com/api/donate-blood/schedule", formData)
         .then((response) => {
             console.log("Data saved successfully:", response.data);
             alert("Appointment Scheduled!");

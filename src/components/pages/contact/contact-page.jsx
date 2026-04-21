@@ -22,36 +22,28 @@ const ContactPage = () => {
 	});
 
 	const handleSubmit = (e) => {
-		e.preventDefault();
+    e.preventDefault();
 
-		console.log(formData);
+    // 1. Validation
+    if (!formData.name || !formData.email || !formData.phone || !formData.reason) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-		Axios.post("http://localhost:3001/create-need-help", {
-			name: formData.name,
-			email: formData.email,
-			phone: formData.phone,
-			reason: formData.reason,
-			message: formData.message,
-		})
-			.then((response) => {
-				console.log("success");
-				console.log(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-
-		newUsersInsertRequest(formData, "need-help");
-
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			reason: "",
-			message: "",
-		});
-	};
-
+    // 2. Post to Backend (Updated URL)
+	Axios.post("https://lets-donate-1.onrender.com/api/contact", formData)
+        .then((response) => {
+            console.log("Success:", response.data);
+            alert("Request Submitted Successfully!");
+            
+            // 3. Reset
+            setFormData({ name: "", email: "", phone: "", reason: "", message: "" });
+        })
+        .catch((error) => {
+            console.error("Submission error:", error);
+            alert("Failed to submit. Check the console.");
+        });
+};
 	const ContactPageDetails = {
 		hero: {
 			subheadingText: "Got any Questions?",
