@@ -4,13 +4,13 @@ import ThreeStepProcessComponent from "../../sections/three-step-process/three-s
 import QuoteComponent from "../../sections/quote/quote-component";
 import CriteriaComponent from "../../sections/criteria/criteria-component";
 import FormComponent from "../../sections/form/form-component";
-import SearchBloodStockComponent from "../../sections/search-blood-stock/search-blood-stock-component";
+//import SearchBloodStockComponent from "../../sections/search-blood-stock/search-blood-stock-component";
 import HeaderComponent from "../../sections/header/header-component";
 import BeforeFooterCTA from "../../sections/before-footer-cta/before-footer-cta-components";
 import FooterComponent from "../../sections/footer/footer-component";
 
 import Axios from "axios";
-import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
+//import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
 
 const NeedBloodPage = () => {
 	const [formData, setFormData] = useState({
@@ -21,37 +21,36 @@ const NeedBloodPage = () => {
 		message: "",
 	});
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+const handleSubmit = (e) => {
+    e.preventDefault();
 
-		console.log(formData);
+    // 1. Validation (name, email, and phone are essential)
+    if (!formData.name || !formData.email || !formData.phone) {
+        alert("Please provide your name, email, and phone number so we can help you.");
+        return;
+    }
 
-		Axios.post("http://localhost:3001/create-need-blood", {
-			name: formData.name,
-			email: formData.email,
-			phone: formData.phone,
-			bloodType: formData.bloodType,
-			message: formData.message,
-		})
-			.then((response) => {
-				console.log("success");
-				console.log(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+    // 2. Submit to Backend 
+    // This hits the 'create-need-blood' route we'll verify in the backend check
+   Axios.post("http://localhost:5000/api/need-blood/request", formData)
+        .then((response) => {
+            console.log("Need request success:", response.data);
+            alert("Your request for blood has been submitted. We will contact you shortly.");
 
-		newUsersInsertRequest(formData, "need-blood");
-
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			bloodType: "",
-			message: "",
-		});
-	};
-
+            // 3. Reset form only on success
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                bloodType: "",
+                message: "",
+            });
+        })
+        .catch((error) => {
+            console.error("Error submitting need-blood request:", error);
+            alert("Failed to send request. Is the server running?");
+        });
+};
 	const NeedBloodPageDetails = {
 		quote: {
 			classHint: "quote need-blood-quote",
@@ -162,7 +161,7 @@ const NeedBloodPage = () => {
 				setFormData={setFormData}
 			/>
 			<QuoteComponent {...NeedBloodPageDetails.quote} />
-			<SearchBloodStockComponent {...NeedBloodPageDetails.bloodStock} />
+			
 			<ThreeStepProcessComponent
 				stepsText={NeedBloodPageDetails.stepsText}
 				stepDetails={stepDetails}

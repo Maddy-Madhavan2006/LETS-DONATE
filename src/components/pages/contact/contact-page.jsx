@@ -10,7 +10,7 @@ import Axios from "axios";
 
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
+//import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
 
 const ContactPage = () => {
 	const [formData, setFormData] = useState({
@@ -96,8 +96,8 @@ const ContactPage = () => {
 			key: "phone",
 			stepNumber: <FaPhoneAlt />,
 			stepName: "Phone",
-			stepDescription: "(+91)63699 34757",
-			stepUrl: "tel:+91 6369934757",
+			stepDescription: "(+91)9876543210",
+			stepUrl: "tel:+91 9876543210",
 		},
 		{
 			key: "email",

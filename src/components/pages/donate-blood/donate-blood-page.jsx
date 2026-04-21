@@ -10,7 +10,7 @@ import HeaderComponent from "../../sections/header/header-component";
 import BeforeFooterCTA from "../../sections/before-footer-cta/before-footer-cta-components";
 import FooterComponent from "../../sections/footer/footer-component";
 
-import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
+//import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
 
 import Axios from "axios";
 
@@ -24,41 +24,34 @@ const DonateBloodPage = () => {
 	});
 
 	const handleSubmit = (e) => {
-		e.preventDefault();
+    e.preventDefault();
 
-		// check if any field is empty then return from here
-		// if (!formData.name || !formData.email || !formData.phone) {
-		// 	return;
-		// }
+    // 1. Basic Validation
+    if (!formData.name || !formData.email || !formData.phone || !formData.bloodType) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-		console.log("success");
-
-		Axios.post("http://localhost:3001/create-donate-blood", {
-			name: formData.name,
-			email: formData.email,
-			phone: formData.phone,
-			bloodType: formData.bloodType,
-			message: formData.message,
-		})
-			.then((response) => {
-				console.log("success");
-				console.log(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-
-		newUsersInsertRequest(formData, "donate-blood");
-
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			bloodType: "",
-			message: "",
-		});
-	};
-
+    // 2. Submit to Backend
+    Axios.post("http://localhost:5000/api/donate-blood/schedule", formData)
+        .then((response) => {
+            console.log("Data saved successfully:", response.data);
+            alert("Appointment Scheduled!");
+            
+            // 3. Reset form ONLY on success
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                bloodType: "",
+                message: "",
+            });
+        })
+        .catch((error) => {
+            console.error("Error saving donation request:", error);
+            alert("Failed to schedule. Check console for details.");
+        });
+};
 	const DonateBloodPageDetails = {
 		quote: {
 			classHint: "quote",

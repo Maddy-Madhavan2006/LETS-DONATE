@@ -9,7 +9,7 @@ import BeforeFooterCTA from "../../sections/before-footer-cta/before-footer-cta-
 import FooterComponent from "../../sections/footer/footer-component";
 
 import Axios from "axios";
-import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
+//import newUsersInsertRequest from "../../utility-functions/new-users-insert-request";
 
 const HostBloodDrivePage = () => {
 	const [formData, setFormData] = useState({
@@ -23,40 +23,36 @@ const HostBloodDrivePage = () => {
 	});
 
 	const handleSubmit = (e) => {
-		e.preventDefault();
+    e.preventDefault();
 
-		console.log(formData);
+    // 1. Validation Check
+    if (!formData.name || !formData.email || !formData.phone || !formData.institute || !formData.city) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-		Axios.post("http://localhost:3001/create-host-blood-drive", {
-			name: formData.name,
-			email: formData.email,
-			phone: formData.phone,
-			institute: formData.institute,
-			designation: formData.designation,
-			city: formData.city,
-			message: formData.message,
-		})
-			.then((response) => {
-				console.log("success");
-				console.log(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+    // 2. Post to Backend
+   Axios.post("http://localhost:5000/api/host-drive/submit", formData)
+        .then((response) => {
+            console.log("Drive hosted successfully:", response.data);
+            alert("Blood Drive Request Submitted!");
 
-		newUsersInsertRequest(formData, "host-blood-drive");
-
-		setFormData({
-			name: "",
-			email: "",
-			phone: "",
-			institute: "",
-			designation: "",
-			city: "",
-			message: "",
-		});
-	};
-
+            // 3. Reset form only on success
+            setFormData({
+                name: "",
+                email: "",
+                phone: "",
+                institute: "",
+                designation: "",
+                city: "",
+                message: "",
+            });
+        })
+        .catch((error) => {
+            console.error("Error submitting drive request:", error);
+            alert("Submission failed. Please try again.");
+        });
+};
 	const HostBloodDrivePageDetails = {
 		quote: {
 			classHint: "quote host-drive-quote",

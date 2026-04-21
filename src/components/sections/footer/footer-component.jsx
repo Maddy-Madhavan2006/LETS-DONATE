@@ -17,10 +17,6 @@ const FooterComponent = () => {
 			link: "/need-blood",
 		},
 		{
-			title: "Donate Money",
-			link: "https://donorbox.org/donate-money-11",
-		},
-		{
 			title: "Host Blood Drive",
 			link: "/host-blood-drive",
 		},
@@ -28,16 +24,12 @@ const FooterComponent = () => {
 			title: "Contact",
 			link: "/contact",
 		},
-		{
-			title: "Admin Dashboard",
-			link: "/admin",
-		},
 	];
 
 	const contactLinks = [
 		{
-			title: "(+91)6369934757",
-			link: "tel:+916369934757",
+			title: "(+91)9876543210",
+			link: "tel:+919876543210",
 		},
 		{
 			title: "letsdonate@gmail.com",
