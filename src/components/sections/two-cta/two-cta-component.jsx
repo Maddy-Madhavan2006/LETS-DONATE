@@ -11,7 +11,7 @@ const TwoCtaComponent = () => {
 			subheading: "Save a life today",
 			heading: "Donate blood at Let'sDonate",
 			btnText: "Donate blood",
-			ctaLink: "/donate-blood",
+			ctaLink: "./donate-blood",
 		},
 		{
 			key: "request-blood",
